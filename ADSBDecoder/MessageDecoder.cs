@@ -113,7 +113,8 @@ public sealed class AirbourneVelocityDecoder : IMessageDecoder
         { ew *= 4; ns *= 4; }
 
         int groundSpeed = (int) Math.Round(Math.Sqrt((ew * ew) + (ns * ns)));
-        double heading = Math.Atan2(ew, ns) * 180.0 / (Math.PI + 360.0) % 360.0;
+        // atan2(east, north) gives the bearing clockwise from north in (-180, 180]; wrap to [0, 360).
+        double heading = ((Math.Atan2(ew, ns) * 180.0 / Math.PI) + 360.0) % 360.0;
         int? verticalRate = rawVr == 0 ? null : (rawVr - 1) * 64 * (descending ? -1 : 1);
 
         return new AirborneVelocity(f.IcaoAddress, groundSpeed, heading, verticalRate);

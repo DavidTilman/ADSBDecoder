@@ -189,9 +189,6 @@ ADSBDecoder/
 - **No position fix.** CPR latitude/longitude are decoded and stored raw, but the
   odd/even CPR pair is never solved into real coordinates, so no lat/lon is
   displayed yet.
-- **Heading is unreliable.** The radians-to-degrees conversion in
-  `AirbourneVelocityDecoder` is wrong (it divides by `Math.PI + 360.0`), so the
-  reported bearing should not be trusted until that is fixed.
 - **DF17 only.** No DF11 acquisition squitters, no DF20/21 Comm-B, no TIS-B.
 - **No error correction.** Frames with a single-bit error are discarded rather
   than repaired, which costs some range compared to `dump1090`.
