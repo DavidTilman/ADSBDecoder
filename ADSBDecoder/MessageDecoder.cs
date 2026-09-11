@@ -77,7 +77,7 @@ public sealed class AirbornePositionDecoder : IMessageDecoder
         }
 
         return new AirbornePosition(
-            f.IcaoAddress, altitudeFeet, odd, lat_cpr, lon_cpr);
+            f.IcaoAddress, altitudeFeet, odd, lat_cpr / Math.Pow(2,17), lon_cpr / Math.Pow(2,17));
     }
 }
 
