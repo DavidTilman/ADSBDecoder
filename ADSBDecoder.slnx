@@ -1,3 +1,7 @@
 <Solution>
   <Project Path="ADSBDecoder/ADSBDecoder.csproj" />
+  <Project Path="AircraftRadar/AircraftRadar.csproj" Id="abaab048-833b-4fb7-b313-f65d746394ba">
+    <Platform Project="x64" />
+    <Deploy />
+  </Project>
 </Solution>

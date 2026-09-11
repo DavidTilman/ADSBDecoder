@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "AircraftRadar (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "AircraftRadar (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

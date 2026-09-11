@@ -1,10 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The radar UI drives the capture loop (Radio, ChunkConverter, FrameDecoder are internal).
+         No decoder type or behaviour is changed; this only grants read access to them. -->
+    <InternalsVisibleTo Include="AircraftRadar" />
+  </ItemGroup>
+
+  <!--
+    Native dependencies of the RtlSdr P/Invokes. These must be declared, not hand-copied into
+    bin: an MSIX-packaged consumer runs from its AppX layout, which only contains files the
+    build knows about. Content (rather than None) is what gets carried into the package.
+    x64 only - there are no x86 or ARM64 builds of these here.
+  -->
+  <ItemGroup>
+    <Content Include="native/x64/*.dll">
+      <Link>%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>

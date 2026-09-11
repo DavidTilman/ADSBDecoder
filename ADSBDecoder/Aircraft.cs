@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Text;
 
 namespace ADSBDecoder;
 
-internal class AircraftRegistry
+public class AircraftRegistry
 {
     public List<Aircraft> Aircraft { get; private set; }
 
     public AircraftRegistry() { 
         this.Aircraft = []; 
     }
+
+    public bool Contains(uint icao) => this.Aircraft.Exists(x => x.Icao == icao);
 
     public void ConsumeMessage(AdsbMessage message)
     {
@@ -69,7 +73,7 @@ internal class AircraftRegistry
         }
     }
 }
-internal class Aircraft
+public class Aircraft : INotifyPropertyChanged
 {
     public uint Icao { get; private set; }
     public string? Callsign { get; private set; }
@@ -79,6 +83,9 @@ internal class Aircraft
     public double? Heading { get; private set; }
     public int? VerticalRate { get; private set; }
     public AirbornePosition?[] PositionFrames = new AirbornePosition?[2] { null, null };
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     public (double? Lat, double? Lon) PositionVector { get; private set; } = (null, null);
     public DateTime LastSeen { get; private set; }
     public Aircraft(uint icao)
